@@ -1,0 +1,17 @@
+api_platform:
+    title: API Demo RabbitMq
+    version: 1.0.0
+    formats:
+        json: ['application/json']
+        html: ['text/html']
+    mapping:
+        paths: ['%kernel.project_dir%/src/Entity']
+    http_cache:
+        max_age: 0
+        shared_max_age: 3600
+        vary: ['Content-Type', 'Authorization', 'Origin']
+        public: true
+    collection:
+        pagination:
+            client_items_per_page: true
+            items_per_page_parameter_name: page_size

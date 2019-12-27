@@ -1,0 +1,39 @@
+old_sound_rabbit_mq:
+    connections:
+        default:
+            host:     'localhost'
+            port:     5672
+            user:     'guest'
+            password: 'guest'
+            vhost:    '/'
+            lazy:     false
+            connection_timeout: 3
+            read_write_timeout: 3
+            keepalive: false
+            heartbeat: 0
+    consumers:
+        notification:
+            connection:       default
+            exchange_options: { name: 'amq.direct', type: direct }
+            queue_options:    { name: 'notification' }
+            callback:         rabbitmq.message.notification.consumer
+        file:
+            connection:       default
+            exchange_options: { name: 'file.readers', type: direct }
+            queue_options:    { name: 'file' }
+            callback:         rabbitmq.message.file.consumer
+        send_emails:
+            connection:       default
+            exchange_options: { name: 'send.emails', type: direct }
+            queue_options:    { name: 'send_emails' }
+            callback:         rabbitmq.message.emails.consumer
+    producers:
+        notification:
+            connection:       default
+            exchange_options: { name: 'amq.direct', type: direct }
+        file:
+            connection:       default
+            exchange_options: { name: 'file.readers', type: direct }
+        send_emails:
+            connection:       default
+            exchange_options: { name: 'send.emails', type: direct }
